@@ -5,9 +5,7 @@ NASM homework assignment
 
 To compile on 64bit linux:
 
-nasm -f elf32 Palindrome.asm
-
-ld -m elf_i386 Palindrome.o io.o
+Just **run make** you need nasm and ld
 
 ----
 
