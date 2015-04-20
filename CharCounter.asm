@@ -52,12 +52,12 @@ restMsg:
 	jmp refillArray		;fill array back up from uncompared chars in stack
 
 refillArray:
-	pop ax
-	mov [esi], ah
-	inc esi
-	cmp ax, 0
-	je checkEachChar
-	jmp refillArray	
+	pop ax			;get ax back from stack
+	mov [esi], ah		;move the char back intro the original array
+	inc esi			;move the pointer to next slot in array
+	cmp ax, 0		;see if char is last one saved in stack
+	je checkEachChar	;if it is move repeat char check with uncompared chars
+	jmp refillArray		;else keep filling the array
 
 incCounter:			;inc counter for that letter
 	inc ecx
