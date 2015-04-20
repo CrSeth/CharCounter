@@ -6,7 +6,7 @@ instructionMsg	db	"Enter a phrase to count it's Chars: ", 0
 equal		db 	" = ", 0	
 blankChar	db	"blanks", 0
 .UDATA
-phrase		resb	16	;buffer to store word can't be over 15chars
+phrase		resb	1024	;buffer to store stream of chars
 
 .CODE				;Code area
 	.STARTUP
@@ -69,4 +69,4 @@ showChar:
 showBlankChar:
 	PutStr blankChar	;show blankChar
 	jmp restMsg			;continue rest of msg
-	
+
