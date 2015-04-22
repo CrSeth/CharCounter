@@ -1,5 +1,5 @@
 %include "io.mac"
-
+%define EOF 0 
 .DATA				;Initialize Data
 	;msg for user
 instructionMsg	db	"Enter a phrase to count it's Chars: ", 0	
@@ -16,12 +16,12 @@ phrase		resb	1024	;buffer to store stream of chars
 checkEachChar:
 	mov esi, phrase		;ptr to first char in phrase
 	mov al, [esi]		;store what esi currently points to
-	cmp al, 0		;Need to change to EOF I think
+	cmp al, EOF		;END if OEF is al
 	je END			;if OEF reading
 	mov ebx, esi		;store what esi currently points to so we can come back
 	xor ecx, ecx		;clear for counter
 	inc esi			;start check at char after one bein compared to
-	push 0			;keep this in stack to know end of saved chars
+	push EOF		;keep this in stack to know end of saved chars
 
 cmpLetter:			;run through the string comparing with the char
 	mov ah, [esi]		;store char we are checking to see if it is at end
@@ -55,7 +55,7 @@ refillArray:
 	pop ax			;get ax back from stack
 	mov [esi], ah		;move the char back intro the original array
 	inc esi			;move the pointer to next slot in array
-	cmp ax, 0		;see if char is last one saved in stack
+	cmp ax, EOF		;see if char is last one saved in stack
 	je checkEachChar	;if it is move repeat char check with uncompared chars
 	jmp refillArray		;else keep filling the array
 
