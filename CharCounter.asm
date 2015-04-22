@@ -1,3 +1,13 @@
+;-------------------------------------------------------
+;This program asks for an input phrase then proceeds to 
+;print all chars that form it with the number of times
+;the char is present in the phrase.
+;
+;---
+;Instituto Tecnologico de Costa Rica - 2015 
+;Course: Computer Achitecture
+;-------------------------------------------------------
+
 %include "io.mac"
 %define EOF 0 
 .DATA				;Initialize Data
