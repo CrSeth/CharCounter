@@ -11,15 +11,15 @@
 %include "io.mac"
 %define EOF 0 
 .DATA				;Initialize Data
-	;msg for user
-instructionMsg	db	"Enter a phrase to count it's Chars: ", 0	
-equal		db 	" = ", 0	
-blankChar	db	"blanks", 0
+	
+instructionMsg	db	"Enter a phrase to count it's Chars: ", 0	;instruction msg
+equal		db 	" = ", 0					;an equal sign for prints
+blankChar	db	"blanks", 0					; when we have a ' ' char substitute with this
 .UDATA
 phrase		resb	1024	;buffer to store stream of chars
 
 .CODE				;Code area
-	.STARTUP
+	.STARTUP		;tell compiler start here
 	PutStr	instructionMsg	;show instruction msg
 	GetStr	phrase		;get string from user
 
@@ -43,22 +43,22 @@ cmpLetter:			;run through the string comparing with the char
 
 restPhrase:			;move esi pointer to next char in str
 	inc esi			
-	jmp cmpLetter
+	jmp cmpLetter		;keep comparing
 
 END:
 	nwln			;final newline to make last char more visible
-	.EXIT
+	.EXIT			;tell OS we are done
 
 checkNextChar:			;move esi to next char to check for & show ocurrences of checked char
 	nwln			;show are reults for N char
 	cmp al, ' '		;if blank
-	je showBlankChar	
+	je showBlankChar	;then show blank char string
 	jne showChar		;if not blank char just print it
 restMsg:
 	PutStr	equal		;show eual sign
 	inc	ecx		;we start counting at 0 so we need to inc 1
 	PutLInt	ecx		;show number of times char is present
-	mov esi, phrase		
+	mov esi, phrase		;point esi to first byte in phrase
 	jmp refillArray		;fill array back up from uncompared chars in stack
 
 refillArray:
@@ -71,7 +71,7 @@ refillArray:
 
 incCounter:			;inc counter for that letter
 	inc ecx
-	jmp restPhrase 
+	jmp restPhrase 		;who rest of phrase
 	
 showChar:
 	PutCh al		;show char checked for
